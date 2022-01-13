@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .name {
+            font-size: 18px;
+            background-color: #626694;
+            color: #fff;
+            border-collapse: collapse;
+        }
+        
+        .name td {
+            padding: 10px;
+            border: 1px solid #fff;
+        }
+
+        .name td[colspan = "2"] {
+            font-weight: bold;
+            text-align: center;
+            background-color: #3d9fc5;
+        }   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="content"></div>
+
+
+    <script>
+    
+    function calculator() {
+        for (let i = 1; i < 2; i++) {
+            let name_lName = prompt("enter your Name and Lastname: Eduard Grigoryan");
+    		let subject = prompt("what's your subject? optika/komplex/ teorver");
+    		let total_1_2 = prompt("Number of the module /enter 1 or 2");
+    		let marks = prompt("enter your marks: лаб прораб лекция");
+
+            function spliter(val) {
+                let arr = val.split(" ");
+                return arr;
+            }
+
+            function pushToOne(arr, total, subj, arr2) {
+                arr.push(total);
+                arr.push(subj);
+                for (let i = 0; i < arr2.length; i++) {
+                    arr.push(arr2[i]);
+                }
+                return arr;
+            }
+
+            let values = pushToOne(spliter(name_lName), total_1_2, subject, spliter(marks));
+            let keys = ["name", "lastname", "Num_Of_module ", "subject", "lab", "prorabotka", "lekcia"];
+            let obj = {};
+
+            function addToObj(keys, values) {
+                return keys.forEach(function(val, i) {
+                    obj[val] = values[i];
+                });
+            }
+            addToObj(keys, values);
+
+            const a = spliter(marks);
+
+            function spliterMarksAndToNumber() {
+                for (let i = 0; i < a.length; i++) {
+                    a[i] = +a[i];
+                }
+            }
+            let NumOfMarks = spliterMarksAndToNumber();
+
+            function calculatorOfTotalMark() {
+                let res = 0;
+                switch (subject) {
+                    case "optika":
+                        res = (a[0] + a[1]) * 0.25 + 0.5 * a[2];
+                        break;
+                    case "komplex":
+                        res = a[1] * 0.4 + 0.6 * a[2];
+                        break;
+                    default:
+                        res = a[1] * 0.5 + 0.5 * a[2];
+                        break;
+                }
+                return res;
+
+
+                return (a[0] + a[1]) * 0.25 + 0.5 * a[3];
+            }
+
+            let total_percentage = calculatorOfTotalMark(NumOfMarks);
+            obj.total_percentage = total_percentage;
+            
+            document.querySelector('.content').innerHTML = `<table class = "name"></table>`
+            for(key in obj) {
+                let row = document.createElement('tr')
+                row.innerHTML = `
+                <td colspan = "2">${key}</td>
+                <td colspan = "2">${obj[key]}</td>
+                `
+                document.querySelector('.name').appendChild(row)
+            }
+        }
+    }
+
+    calculator();
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
